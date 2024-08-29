@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-@PreAuthorize("hasAuthority('USER')")
 @RestController
 public class TestController {
 
@@ -16,7 +15,6 @@ public class TestController {
     public String test(){
         return "test";
     }
-
     @PostMapping("/test")
     public String test2(){
         return "test";

@@ -45,11 +45,16 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class)
+//                .addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(form -> form.disable())
                 .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(basic -> basic.disable());
+                .httpBasic(basic -> basic.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest().authenticated()
+
+                );
 
         return http.build();
     }
