@@ -1,4 +1,4 @@
-package com.ohgiraffers.metachatbe.security.auth.handler;
+package com.ohgiraffers.metachatbe.security.auth.manager;
 
 import com.ohgiraffers.metachatbe.security.auth.service.WebSecurityService;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -6,8 +6,6 @@ import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
 
 import java.util.function.Supplier;
 

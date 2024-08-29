@@ -1,4 +1,4 @@
-package com.ohgiraffers.metachatbe.security.auth.handler;
+package com.ohgiraffers.metachatbe.security.common.utils;
 
 
 import com.ohgiraffers.metachatbe.security.auth.model.dto.CustomUserInfoDTO;

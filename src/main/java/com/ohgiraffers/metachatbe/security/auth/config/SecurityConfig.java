@@ -2,10 +2,9 @@ package com.ohgiraffers.metachatbe.security.auth.config;
 
 import com.ohgiraffers.metachatbe.security.auth.filter.JwtAuthFilter;
 import com.ohgiraffers.metachatbe.user.repository.UserCommandRepository;
-import com.ohgiraffers.metachatbe.security.auth.handler.JwtUtil;
+import com.ohgiraffers.metachatbe.security.common.utils.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -14,9 +13,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import reactor.core.publisher.Mono;
 import com.ohgiraffers.metachatbe.security.auth.service.CustomUserService;
-import com.ohgiraffers.metachatbe.security.auth.handler.GetOrFullAuthorizationManager;
+import com.ohgiraffers.metachatbe.security.auth.manager.GetOrFullAuthorizationManager;
 import java.util.List;
 
 @Configuration

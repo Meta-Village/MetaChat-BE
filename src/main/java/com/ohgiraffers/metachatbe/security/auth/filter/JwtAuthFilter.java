@@ -1,6 +1,6 @@
 package com.ohgiraffers.metachatbe.security.auth.filter;
 
-import com.ohgiraffers.metachatbe.security.auth.handler.JwtUtil;
+import com.ohgiraffers.metachatbe.security.common.utils.JwtUtil;
 import com.ohgiraffers.metachatbe.security.auth.service.CustomUserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
