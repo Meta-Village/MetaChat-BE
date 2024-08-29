@@ -1,12 +1,11 @@
 package com.ohgiraffers.metachatbe.security.common.utils;
 
 import com.ohgiraffers.metachatbe.user.entity.User;
-import org.springframework.beans.factory.annotation.Value;
 import io.jsonwebtoken.*;
+import jakarta.xml.bind.DatatypeConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
