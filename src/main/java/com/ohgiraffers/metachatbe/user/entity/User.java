@@ -1,72 +1,55 @@
 package com.ohgiraffers.metachatbe.user.entity;
 
-import com.ohgiraffers.metachatbe.security.common.OhgiraffersRole;
-import jakarta.persistence.*;
+import com.ohgiraffers.metachatbe.security.auth.model.dto.Authority;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.relational.core.mapping.Column;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-@Entity
-@Table(name = "TBL_USER")
+@Table("TBL_USER") // 테이블 매핑
 public class User {
 
     @Id
-    @Column(name = "USER_NO")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userNo;
+    @Column("USER_ID")
+    private Long id;
 
-    @Column(name = "USER_ID", nullable = false)
-    private String userId;
+    @Column("USER_PASS")
+    private String password;
 
-    @Column(name = "USER_PASS",nullable = false)
-    private String userPass;
-
-    @Column(name = "USER_NAME")
+    @Column("USER_NAME")
     private String userName;
 
-    @Column(name = "USER_EMAIL")
-    private String userEmail;
+    @Column("USER_EMAIL")
+    private String email;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "USER_ROLE")
-    private OhgiraffersRole role;
+    @Column("USER_ROLE")
+    private Authority role;
 
-    @Column(name = "USER_STATE")
+    @Column("USER_STATE")
     private String state;
 
-    public List<String> getRoleList(){
-        if(this.role.getRole().length() > 0){
-            return Arrays.asList(this.role.getRole().split(","));
-        }
-        return new ArrayList<>();
-    }
 
+
+    // 기본 생성자
     public User() {
     }
 
-    public int getUserNo() {
-        return userNo;
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
     }
 
-    public void setUserNo(int userNo) {
-        this.userNo = userNo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserPass() {
-        return userPass;
-    }
-
-    public void setUserPass(String userPass) {
-        this.userPass = userPass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {
@@ -77,19 +60,19 @@ public class User {
         this.userName = userName;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public OhgiraffersRole getRole() {
+    public Authority getRole() {
         return role;
     }
 
-    public void setRole(OhgiraffersRole role) {
+    public void setRole(Authority role) {
         this.role = role;
     }
 
@@ -104,11 +87,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userNo=" + userNo +
-                ", userId='" + userId + '\'' +
-                ", userPass='" + userPass + '\'' +
+                ", id='" + id + '\'' +
+                ", password='" + password + '\'' +
                 ", userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
+                ", email='" + email + '\'' +
                 ", role=" + role +
                 ", state='" + state + '\'' +
                 '}';
