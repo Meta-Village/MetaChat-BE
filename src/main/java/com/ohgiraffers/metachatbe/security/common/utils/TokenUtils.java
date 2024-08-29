@@ -1,5 +1,5 @@
 package com.ohgiraffers.metachatbe.security.common.utils;
-
+import io.jsonwebtoken.ExpiredJwtException;
 import com.ohgiraffers.metachatbe.user.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import io.jsonwebtoken.*;
