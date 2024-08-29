@@ -1,0 +1,18 @@
+services:
+  db:
+    restart: always
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: metachatdb
+      MYSQL_USER: ohgiraffers
+      MYSQL_PASSWORD: ohgiraffers
+      MYSQL_SSL_CA: ""
+      MYSQL_SSL_CERT: ""
+      MYSQL_SSL_KEY: ""
+      TZ: "Asia/Seoul"
+    ports:
+      - "10000:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
