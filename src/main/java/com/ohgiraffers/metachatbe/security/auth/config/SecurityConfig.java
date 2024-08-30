@@ -42,7 +42,6 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(auth -> auth
                         .pathMatchers("/**").permitAll()
                         .anyExchange().authenticated()
@@ -71,19 +70,5 @@ public class SecurityConfig {
         return new CorsWebFilter(source);
     }
 
-    private UrlBasedCorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("https://*.google.com");
-        config.addAllowedOrigin("https://lh3.googleusercontent.com");
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedOrigin("https://monitor.master-of-prediction.shop:3001");
-        config.addAllowedOrigin("https://monitor.master-of-prediction.shop");
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(List.of("*"));
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
+
 }

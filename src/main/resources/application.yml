@@ -1,7 +1,13 @@
 server:
   port: 8123
-
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: ${SSL_KEY_STORE_PASSWORD}
+    key-store-type: PKCS12
+    key-alias: tomcat
 spring:
+
   r2dbc:
     url: r2dbc:mysql://localhost:10000/metachatdb
     username: ohgiraffers
@@ -37,6 +43,7 @@ spring:
             - Path=/test2/**  # /test/** 경로로 들어오는 모든 요청을 이 라우트로 처리
           filters:
             - RewritePath=/test2/(?<segment>.*), /get  # 경로를 /get으로 재작성하여 포워딩
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html  # Swagger UI에 접근할 수 있는 경로 설정
@@ -53,3 +60,8 @@ jwt:
   expiration_time: 86400000 # 1일
   secret: ${JWT_SECRET}
 
+minio:
+  url: ${MINIO_SERVER_URL}
+  accessKey: ${MINIO_ACCESS_KEY}
+  secretKey:  ${MINIO_PASSWORD}
+  bucketName: ${MINIO_BUCKET_NAME}
