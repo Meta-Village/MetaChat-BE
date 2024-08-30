@@ -11,6 +11,12 @@ spring:
   sql:
     init:
       schema-locations: classpath:schema.sql
+  data:
+    mongodb:
+      uri: mongodb://ohgiraffers:ohgiraffers@localhost:10001/metachatmongodb?authSource=admin
+  webflux:
+    base-path: /api/v1
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html  # Swagger UI에 접근할 수 있는 경로 설정
@@ -21,6 +27,7 @@ logging:
   level:
     org.springframework.r2dbc: DEBUG
     io.r2dbc: TRACE
+    org.springframework.data.mongodb: DEBUG
 
 jwt:
   expiration_time: 86400000 # 1일

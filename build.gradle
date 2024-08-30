@@ -20,6 +20,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc' // R2DBC for reactive database access
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux' // WebFlux for reactive web applications
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
