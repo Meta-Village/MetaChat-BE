@@ -11,6 +11,11 @@ spring:
   sql:
     init:
       schema-locations: classpath:schema.sql
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html  # Swagger UI에 접근할 수 있는 경로 설정
+  api-docs:
+    path: /v3/api-docs      # OpenAPI 문서에 접근할 수 있는 경로 설정
 
 logging:
   level:

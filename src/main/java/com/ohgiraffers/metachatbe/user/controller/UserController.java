@@ -2,6 +2,7 @@ package com.ohgiraffers.metachatbe.user.controller;
 
 import com.ohgiraffers.metachatbe.user.repository.UserCommandRepository;
 import com.ohgiraffers.metachatbe.user.entity.User;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +19,7 @@ public class UserController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
+    @Hidden
     @PostMapping("/signup")
     public Mono<ResponseEntity<String>> signup(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

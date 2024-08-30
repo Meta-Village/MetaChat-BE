@@ -11,18 +11,18 @@ public class World {
     @Column("ID")
     private Long id;
 
-    @Column("ROOM_NAME")
-    private String roomName;
+    @Column("WORLD_NAME")
+    private String worldName;
 
-    @Column("ROOM_PASSWORD")
-    private String roomPassword;
+    @Column("WORLD_PASSWORD")
+    private String worldPassword;
 
     public World() {
     }
 
-    public World(String roomName, String roomPassword) {
-        this.roomName = roomName;
-        this.roomPassword = roomPassword;
+    public World(String worldName, String worldPassword) {
+        this.worldName = worldName;
+        this.worldPassword = worldPassword;
     }
 
     // Getters and Setters
@@ -34,28 +34,28 @@ public class World {
         this.id = id;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public String getWorldName() {
+        return worldName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
     }
 
-    public String getRoomPassword() {
-        return roomPassword;
+    public String getWorldPassword() {
+        return worldPassword;
     }
 
-    public void setRoomPassword(String roomPassword) {
-        this.roomPassword = roomPassword;
+    public void setWorldPassword(String worldPassword) {
+        this.worldPassword = worldPassword;
     }
 
     @Override
     public String toString() {
         return "World{" +
                 "id=" + id +
-                ", roomName='" + roomName + '\'' +
-                ", roomPassword='" + roomPassword + '\'' +
+                ", worldName='" + worldName + '\'' +
+                ", worldPassword='" + worldPassword + '\'' +
                 '}';
     }
 }
