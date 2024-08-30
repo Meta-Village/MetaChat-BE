@@ -12,7 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/worlds")
+@RequestMapping("/api/v1/worlds")
 public class WorldController {
 
     private final WorldService worldService;

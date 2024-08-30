@@ -14,9 +14,29 @@ spring:
   data:
     mongodb:
       uri: mongodb://ohgiraffers:ohgiraffers@localhost:10001/metachatmongodb?authSource=admin
-  webflux:
-    base-path: /api/v1
 
+  cloud:
+    gateway:
+      routes:
+        - id: chatbot_route
+          uri: https://eagle-prepared-octopus.ngrok-free.app # 포워딩할 대상 URL
+          predicates:
+            - Path=/chatbot/**  # /chatbot/** 경로로 들어오는 모든 요청을 이 라우트로 처리
+          filters:
+            - RewritePath=/chatbot/(?<segment>.*), /chatbot_test/chat  # 경로를 /chatbot_test/chat으로 재작성하여 포워딩
+
+        - id: stt_route
+          uri: https://eagle-prepared-octopus.ngrok-free.app  # 포워딩할 대상 기본 URL
+          predicates:
+            - Path=/voice/**  # /voice/** 경로로 들어오는 모든 요청을 이 라우트로 처리
+          filters:
+            - RewritePath=/voice/(?<segment>.*), /voice  # 경로를 /voice로 재작성하여 포워딩
+        - id: test_route
+          uri: https://httpbin.org # 테스트용 무료 서비스 URL
+          predicates:
+            - Path=/test2/**  # /test/** 경로로 들어오는 모든 요청을 이 라우트로 처리
+          filters:
+            - RewritePath=/test2/(?<segment>.*), /get  # 경로를 /get으로 재작성하여 포워딩
 springdoc:
   swagger-ui:
     path: /swagger-ui.html  # Swagger UI에 접근할 수 있는 경로 설정
@@ -32,3 +52,4 @@ logging:
 jwt:
   expiration_time: 86400000 # 1일
   secret: ${JWT_SECRET}
+
