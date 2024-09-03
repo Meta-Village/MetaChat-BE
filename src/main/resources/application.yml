@@ -2,6 +2,8 @@ server:
   port: 8123
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   threads:
     virtual:
       enabled: true
@@ -14,7 +16,7 @@ spring:
     show-sql: true
     database: mysql
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -50,3 +52,8 @@ jwt:
 
 mybatis:
   mapper-locations: mappers/**/*.xml
+minio:
+  url: ${MINIO_SERVER_URL}
+  accessKey: ${MINIO_ACCESS_KEY}
+  secretKey:  ${MINIO_PASSWORD}
+  bucketName: ${MINIO_BUCKET_NAME}
