@@ -1,7 +1,7 @@
-package com.ohgiraffers.metachatbe.zone.command.domain.model;
+package com.ohgiraffers.metachatbe.zonehistory.command.domain.model;
 
-import com.ohgiraffers.metachatbe.zone.command.domain.model.embedded.ZoneName;
-import com.ohgiraffers.metachatbe.zone.command.domain.model.embedded.User;
+import com.ohgiraffers.metachatbe.util.enumtype.ZoneName;
+import com.ohgiraffers.metachatbe.zonehistory.command.domain.model.embedded.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_zone")
-public class Zone {
+@Table(name = "tbl_zone_history")
+public class ZoneHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "zone_id")
-    private long zoneId;
+    @Column(name = "zone_history_id")
+    private long zoneHistoryId;
 
     @Column(name = "entry_time")
     private LocalDateTime entryTime;
@@ -32,7 +32,7 @@ public class Zone {
     @Embedded
     private User user;
 
-    public Zone(LocalDateTime entryTime, LocalDateTime existTime, ZoneName zoneName, User user) {
+    public ZoneHistory(LocalDateTime entryTime, LocalDateTime existTime, ZoneName zoneName, User user) {
         this.entryTime = entryTime;
         this.existTime = existTime;
         this.zoneName = zoneName;
@@ -42,7 +42,7 @@ public class Zone {
     @Override
     public String toString() {
         return "Zone{" +
-                "zoneId=" + zoneId +
+                "zoneHistoryId=" + zoneHistoryId +
                 ", entryTime=" + entryTime +
                 ", existTime=" + existTime +
                 ", zoneName=" + zoneName +
