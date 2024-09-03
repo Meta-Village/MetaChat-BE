@@ -16,3 +16,32 @@ services:
     volumes:
       - ./mysql_data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: MY-USER
+      MINIO_ROOT_PASSWORD: MY-PASSWORD
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    profiles: [ "storage", "required" ]
+  #      - storage
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
+volumes:
+  minio-data:
+  mongo_data:
