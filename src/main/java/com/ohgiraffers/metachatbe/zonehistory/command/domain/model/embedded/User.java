@@ -1,4 +1,4 @@
-package com.ohgiraffers.metachatbe.zone.command.domain.model.embedded;
+package com.ohgiraffers.metachatbe.zonehistory.command.domain.model.embedded;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

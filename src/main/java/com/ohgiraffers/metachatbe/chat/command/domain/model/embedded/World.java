@@ -1,4 +1,4 @@
-package com.ohgiraffers.metachatbe.meeting.command.domain.model.embedded;
+package com.ohgiraffers.metachatbe.chat.command.domain.model.embedded;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -10,17 +10,17 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class World {
 
-    @Column(name = "world_id")
-    private String worldId;
+    @Column(name = "chat_world_id")
+    private String chatWorldId;
 
-    public World(String worldId) {
-        this.worldId = worldId;
+    public World(String chatWorldId) {
+        this.chatWorldId = chatWorldId;
     }
 
     @Override
     public String toString() {
         return "World{" +
-                "worldId='" + worldId + '\'' +
+                "chatWorldId='" + chatWorldId + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,7 @@
 package com.ohgiraffers.metachatbe.meeting.command.domain.model;
 
 import com.ohgiraffers.metachatbe.meeting.command.domain.model.embedded.World;
-import com.ohgiraffers.metachatbe.meeting.command.domain.model.embedded.Zone;
+import com.ohgiraffers.metachatbe.util.enumtype.ZoneName;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,17 +25,17 @@ public class Meet {
     @Column(name = "meet_end_time")
     private LocalDateTime meetEndTime;
 
+    @Column(name = "zone_name")
+    private ZoneName zoneName;
+
     @Embedded
     private World world;
 
-    @Embedded
-    private Zone zone;
-
-    public Meet(LocalDateTime meetStartTime, LocalDateTime meetEndTime, World world, Zone zone) {
+    public Meet(LocalDateTime meetStartTime, LocalDateTime meetEndTime, ZoneName zoneName, World world) {
         this.meetStartTime = meetStartTime;
         this.meetEndTime = meetEndTime;
+        this.zoneName = zoneName;
         this.world = world;
-        this.zone = zone;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Meet {
                 "meetId=" + meetId +
                 ", meetStartTime=" + meetStartTime +
                 ", meetEndTime=" + meetEndTime +
+                ", zoneName=" + zoneName +
                 ", world=" + world +
-                ", zone=" + zone +
                 '}';
     }
 }
