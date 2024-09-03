@@ -1,7 +1,7 @@
 package com.ohgiraffers.metachatbe.zone.command.domain.model;
 
+import com.ohgiraffers.metachatbe.zone.command.domain.model.embedded.ZoneName;
 import com.ohgiraffers.metachatbe.zone.command.domain.model.embedded.User;
-import com.ohgiraffers.metachatbe.zone.command.domain.model.enumtype.ZoneName;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
