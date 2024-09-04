@@ -44,12 +44,22 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class)
+//        http.csrf(AbstractHttpConfigurer::disable)
+//                .addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class)
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .formLogin(form -> form.disable())
+//                .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .httpBasic(basic -> basic.disable());
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                // .addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class) // 이 줄을 주석 처리
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(form -> form.disable())
-                .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(basic -> basic.disable());
+                // .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) // 이 줄을 주석 처리
+                .httpBasic(basic -> basic.disable())
+                .authorizeRequests(auth -> auth
+                        .anyRequest().permitAll() // 모든 요청을 허용
+                );
 
         return http.build();
     }

@@ -17,9 +17,10 @@ public class MeetingService {
     }
 
     @Transactional
-    public void createMeeting(MeetingDTO meetingDTO) {
+    public long createMeeting(MeetingDTO meetingDTO) {
         Meeting meeting = meetingDTO.toEntity();
         meetingRepository.save(meeting);
+        return meeting.getMeetId();
     }
 
     @Transactional
