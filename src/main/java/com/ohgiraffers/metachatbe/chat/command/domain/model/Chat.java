@@ -25,17 +25,17 @@ public class Chat {
     @Column(name = "zone_name")
     private ZoneName zoneName;
 
-    @Embedded
-    private User user;
+    @Column(name = "user_id")
+    private long userId;
 
-    @Embedded
-    private World world;
+    @Column(name = "world_id")
+    private long worldId;
 
-    public Chat(LocalDateTime chatTime, ZoneName zoneName, User user, World world) {
+    public Chat(LocalDateTime chatTime, ZoneName zoneName, long userId, long worldId) {
         this.chatTime = chatTime;
         this.zoneName = zoneName;
-        this.user = user;
-        this.world = world;
+        this.userId = userId;
+        this.worldId = worldId;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Chat {
                 "chatId=" + chatId +
                 ", chatTime=" + chatTime +
                 ", zoneName=" + zoneName +
-                ", user=" + user +
-                ", world=" + world +
+                ", userId=" + userId +
+                ", worldId=" + worldId +
                 '}';
     }
 }
