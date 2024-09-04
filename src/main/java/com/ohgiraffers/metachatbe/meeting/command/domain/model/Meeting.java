@@ -1,6 +1,5 @@
 package com.ohgiraffers.metachatbe.meeting.command.domain.model;
 
-import com.ohgiraffers.metachatbe.meeting.command.domain.model.embedded.World;
 import com.ohgiraffers.metachatbe.util.enumtype.ZoneName;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,41 +10,41 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_meet")
-public class Meet {
+@Table(name = "tbl_meeting")
+public class Meeting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "meet_id")
+    @Column(name = "meeting_id")
     private long meetId;
 
-    @Column(name = "meet_start_time")
+    @Column(name = "meeting_start_time")
     private LocalDateTime meetStartTime;
 
-    @Column(name = "meet_end_time")
+    @Column(name = "meeting_end_time")
     private LocalDateTime meetEndTime;
 
     @Column(name = "zone_name")
     private ZoneName zoneName;
 
-    @Embedded
-    private World world;
+    @Column(name = "world_id")
+    private long worldId;
 
-    public Meet(LocalDateTime meetStartTime, LocalDateTime meetEndTime, ZoneName zoneName, World world) {
+    public Meeting(LocalDateTime meetStartTime, LocalDateTime meetEndTime, ZoneName zoneName, long worldId) {
         this.meetStartTime = meetStartTime;
         this.meetEndTime = meetEndTime;
         this.zoneName = zoneName;
-        this.world = world;
+        this.worldId = worldId;
     }
 
     @Override
     public String toString() {
-        return "Meet{" +
+        return "Meeting{" +
                 "meetId=" + meetId +
                 ", meetStartTime=" + meetStartTime +
                 ", meetEndTime=" + meetEndTime +
                 ", zoneName=" + zoneName +
-                ", world=" + world +
+                ", worldId=" + worldId +
                 '}';
     }
 }

@@ -1,7 +1,6 @@
 package com.ohgiraffers.metachatbe.zonehistory.command.domain.model;
 
 import com.ohgiraffers.metachatbe.util.enumtype.ZoneName;
-import com.ohgiraffers.metachatbe.zonehistory.command.domain.model.embedded.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,24 +28,29 @@ public class ZoneHistory {
     @Column(name = "zone_name")
     private ZoneName zoneName;
 
-    @Embedded
-    private User user;
+    @Column(name = "user_id")
+    private long userId;
 
-    public ZoneHistory(LocalDateTime entryTime, LocalDateTime existTime, ZoneName zoneName, User user) {
+    @Column(name = "world_id")
+    private long worldId;
+
+    public ZoneHistory(LocalDateTime entryTime, LocalDateTime existTime, ZoneName zoneName, long userId, long worldId) {
         this.entryTime = entryTime;
         this.existTime = existTime;
         this.zoneName = zoneName;
-        this.user = user;
+        this.userId = userId;
+        this.worldId = worldId;
     }
 
     @Override
     public String toString() {
-        return "Zone{" +
+        return "ZoneHistory{" +
                 "zoneHistoryId=" + zoneHistoryId +
                 ", entryTime=" + entryTime +
                 ", existTime=" + existTime +
                 ", zoneName=" + zoneName +
-                ", user=" + user +
+                ", userId=" + userId +
+                ", worldId=" + worldId +
                 '}';
     }
 }

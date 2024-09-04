@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 public class World {
 
     @Column(name = "chat_world_id")
-    private String chatWorldId;
+    private long chatWorldId;
 
-    public World(String chatWorldId) {
+    public World(long chatWorldId) {
         this.chatWorldId = chatWorldId;
     }
 
