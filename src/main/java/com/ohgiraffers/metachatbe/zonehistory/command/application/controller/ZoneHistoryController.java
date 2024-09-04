@@ -2,7 +2,7 @@ package com.ohgiraffers.metachatbe.zonehistory.command.application.controller;
 
 import com.ohgiraffers.metachatbe.util.ResponseMessage;
 import com.ohgiraffers.metachatbe.zonehistory.command.application.dto.ZoneHistoryDTO;
-import com.ohgiraffers.metachatbe.zonehistory.command.application.service.ZoneHistoryInsertService;
+import com.ohgiraffers.metachatbe.zonehistory.command.application.service.ZoneHistoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/zoneHistory")
 public class ZoneHistoryController {
 
-    private final ZoneHistoryInsertService zoneHistoryInsertService;
+    private final ZoneHistoryService zoneHistoryService;
 
-    public ZoneHistoryController(ZoneHistoryInsertService zoneHistoryInsertService) {
-        this.zoneHistoryInsertService = zoneHistoryInsertService;
+    public ZoneHistoryController(ZoneHistoryService zoneHistoryService) {
+        this.zoneHistoryService = zoneHistoryService;
     }
 
     @PostMapping
     public ResponseEntity<ResponseMessage> insertZoneHistory(@RequestBody ZoneHistoryDTO zoneHistoryDTO) {
         try {
-            zoneHistoryInsertService.insertZoneHistory(zoneHistoryDTO);
+            zoneHistoryService.insertZoneHistory(zoneHistoryDTO);
             return ResponseEntity.ok(new ResponseMessage(HttpStatus.OK.value()));
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
