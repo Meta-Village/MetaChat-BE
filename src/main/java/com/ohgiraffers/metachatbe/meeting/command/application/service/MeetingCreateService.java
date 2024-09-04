@@ -1,6 +1,6 @@
 package com.ohgiraffers.metachatbe.meeting.command.application.service;
 
-import com.ohgiraffers.metachatbe.meeting.command.application.controller.dto.MeetingDTO;
+import com.ohgiraffers.metachatbe.meeting.command.application.dto.MeetingDTO;
 import com.ohgiraffers.metachatbe.meeting.command.domain.model.Meeting;
 import com.ohgiraffers.metachatbe.meeting.command.domain.repository.MeetingRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class MeetingCreateService {
 
     @Transactional
     public void createMeeting(MeetingDTO meetingDTO) {
-//        Meeting meeting = meetingDTO.toEntity();
-//        meetingRepository.save(meeting);
+        Meeting meeting = meetingDTO.toEntity();
+        meetingRepository.save(meeting);
     }
 }
