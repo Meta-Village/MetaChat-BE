@@ -1,8 +1,7 @@
 package com.ohgiraffers.metachatbe.meeting.command.application.controller;
 
-import com.ohgiraffers.metachatbe.meeting.command.application.controller.dto.MeetingDTO;
+import com.ohgiraffers.metachatbe.meeting.command.application.dto.MeetingDTO;
 import com.ohgiraffers.metachatbe.meeting.command.application.service.MeetingCreateService;
-import com.ohgiraffers.metachatbe.meeting.command.domain.model.Meeting;
 import com.ohgiraffers.metachatbe.util.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
