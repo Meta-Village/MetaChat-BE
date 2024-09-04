@@ -6,10 +6,12 @@ import com.ohgiraffers.metachatbe.world.command.application.service.WorldService
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/worlds")
@@ -28,8 +30,9 @@ public class WorldController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping
-    public Mono<WorldResponseDTO> createWorld(@RequestBody WorldRequestDTO world) {
-        return worldService.createWorld(world);
+    public ResponseEntity<WorldResponseDTO> createWorld(@RequestBody WorldRequestDTO world) {
+        WorldResponseDTO createdWorld = worldService.createWorld(world);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdWorld);
     }
 
     @Operation(summary = "Get World by ID", description = "Retrieves a World entity by its ID.")
@@ -39,8 +42,10 @@ public class WorldController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/{id}")
-    public Mono<WorldResponseDTO> getWorldById(@PathVariable Long id) {
-        return worldService.getWorldById(id);
+    public ResponseEntity<WorldResponseDTO> getWorldById(@PathVariable Long id) {
+        Optional<WorldResponseDTO> world = worldService.getWorldById(id);
+        return world.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @Operation(summary = "Get all Worlds", description = "Retrieves all World entities.")
@@ -49,8 +54,9 @@ public class WorldController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping
-    public Flux<WorldResponseDTO> getAllWorlds() {
-        return worldService.getAllWorlds();
+    public ResponseEntity<List<WorldResponseDTO>> getAllWorlds() {
+        List<WorldResponseDTO> worlds = worldService.getAllWorlds();
+        return ResponseEntity.ok(worlds);
     }
 
     @Operation(summary = "Update World", description = "Updates an existing World entity by its ID.")
@@ -61,9 +67,13 @@ public class WorldController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<String>> updateWorld(@PathVariable Long id, @RequestBody WorldRequestDTO world) {
-        return worldService.updateWorld(id, world)
-                .then(Mono.just(ResponseEntity.ok("변경되었습니다.")));
+    public ResponseEntity<String> updateWorld(@PathVariable Long id, @RequestBody WorldRequestDTO world) {
+        boolean isUpdated = worldService.updateWorld(id, world);
+        if (isUpdated) {
+            return ResponseEntity.ok("변경되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("World not found");
+        }
     }
 
     @Operation(summary = "Delete World", description = "Deletes a World entity by its ID.")
@@ -73,8 +83,12 @@ public class WorldController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<String>> deleteWorld(@PathVariable Long id) {
-        return worldService.deleteWorld(id)
-                .then(Mono.just(ResponseEntity.ok("제거되었습니다.")));
+    public ResponseEntity<String> deleteWorld(@PathVariable Long id) {
+        boolean isDeleted = worldService.deleteWorld(id);
+        if (isDeleted) {
+            return ResponseEntity.ok("제거되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("World not found");
+        }
     }
 }

@@ -1,30 +1,47 @@
-version: '3.8'
-
 services:
-  mysql:
-    image: mysql:8.0
+  db:
+    restart: always
+    image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: metachatdb
       MYSQL_USER: ohgiraffers
       MYSQL_PASSWORD: ohgiraffers
+      MYSQL_SSL_CA: ""
+      MYSQL_SSL_CERT: ""
+      MYSQL_SSL_KEY: ""
+      TZ: "Asia/Seoul"
     ports:
       - "10000:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
 
-  mongodb:
-    image: mongo:7.0.14
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ohgiraffers
-      MONGO_INITDB_ROOT_PASSWORD: ohgiraffers
-      MONGO_INITDB_DATABASE: metachatmongodb
+  minio:
+    image: minio/minio:latest
+    container_name: minio
     ports:
-      - "10001:27017"
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: MY-USER
+      MINIO_ROOT_PASSWORD: MY-PASSWORD
+    command: server /data --console-address ":9001"
     volumes:
-      - mongodb_data:/data/db
-    command: mongod --auth
-
+      - minio-data:/data
+    profiles: [ "storage", "required" ]
+  #      - storage
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
 volumes:
-  mysql_data:
-  mongodb_data:
+  minio-data:
+  mongo_data:

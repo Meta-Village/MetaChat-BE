@@ -1,20 +1,21 @@
 package com.ohgiraffers.metachatbe.world.command.domain.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
-@Table("WORLD")
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "WORLD")
 public class World {
 
     @Id
-    @Column("ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column("WORLD_NAME")
+    @Column(name = "WORLD_NAME", nullable = false)
     private String worldName;
 
-    @Column("WORLD_PASSWORD")
+    @Column(name = "WORLD_PASSWORD", nullable = false)
     private String worldPassword;
 
     public World() {

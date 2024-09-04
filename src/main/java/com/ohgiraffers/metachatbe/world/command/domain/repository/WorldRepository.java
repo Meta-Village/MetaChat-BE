@@ -2,7 +2,9 @@ package com.ohgiraffers.metachatbe.world.command.domain.repository;
 
 
 import com.ohgiraffers.metachatbe.world.command.domain.model.World;
-import org.springframework.data.r2dbc.repository.R2dbcRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface WorldRepository extends R2dbcRepository<World, Long> {
+@Repository
+public interface WorldRepository extends JpaRepository<World, Long> {
 }

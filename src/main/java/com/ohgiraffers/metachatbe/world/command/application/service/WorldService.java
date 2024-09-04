@@ -5,8 +5,10 @@ import com.ohgiraffers.metachatbe.world.command.application.dto.WorldResponseDTO
 import com.ohgiraffers.metachatbe.world.command.domain.model.World;
 import com.ohgiraffers.metachatbe.world.command.domain.repository.WorldRepository;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class WorldService {
@@ -17,34 +19,41 @@ public class WorldService {
         this.worldRepository = worldRepository;
     }
 
-    public Mono<WorldResponseDTO> createWorld(WorldRequestDTO worldDTO) {
+    public WorldResponseDTO createWorld(WorldRequestDTO worldDTO) {
         World world = convertToEntity(worldDTO);
-        return worldRepository.save(world)
-                .map(this::convertToResponseDTO);
+        World savedWorld = worldRepository.save(world);
+        return convertToResponseDTO(savedWorld);
     }
 
-    public Mono<WorldResponseDTO> getWorldById(Long id) {
+    public Optional<WorldResponseDTO> getWorldById(Long id) {
         return worldRepository.findById(id)
                 .map(this::convertToResponseDTO);
     }
 
-    public Flux<WorldResponseDTO> getAllWorlds() {
-        return worldRepository.findAll()
-                .map(this::convertToResponseDTO);
+    public List<WorldResponseDTO> getAllWorlds() {
+        return worldRepository.findAll().stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public Mono<WorldResponseDTO> updateWorld(Long id, WorldRequestDTO worldDTO) {
-        return worldRepository.findById(id)
-                .flatMap(existingWorld -> {
-                    existingWorld.setWorldName(worldDTO.getWorldName());
-                    existingWorld.setWorldPassword(worldDTO.getWorldPassword());
-                    return worldRepository.save(existingWorld);
-                })
-                .map(this::convertToResponseDTO);
+    public boolean updateWorld(Long id, WorldRequestDTO worldDTO) {
+        Optional<World> existingWorldOpt = worldRepository.findById(id);
+        if (existingWorldOpt.isPresent()) {
+            World existingWorld = existingWorldOpt.get();
+            existingWorld.setWorldName(worldDTO.getWorldName());
+            existingWorld.setWorldPassword(worldDTO.getWorldPassword());
+            worldRepository.save(existingWorld);
+            return true;
+        }
+        return false;
     }
 
-    public Mono<Void> deleteWorld(Long id) {
-        return worldRepository.deleteById(id);
+    public boolean deleteWorld(Long id) {
+        if (worldRepository.existsById(id)) {
+            worldRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     // DTO를 엔티티로 변환하는 메서드

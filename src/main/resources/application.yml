@@ -2,54 +2,58 @@ server:
   port: 8123
 
 spring:
-  r2dbc:
-    url: r2dbc:mysql://localhost:10000/metachatdb
-    username: ohgiraffers
-    password: ohgiraffers
   config:
     import: optional:file:.env[.properties]
-  sql:
-    init:
-      schema-locations: classpath:schema.sql
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:10000/metachatdb
+    username: ohgiraffers
+    password: ohgiraffers
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
   data:
     mongodb:
       uri: mongodb://ohgiraffers:ohgiraffers@localhost:10001/metachatmongodb?authSource=admin
-
   cloud:
     gateway:
-      routes:
-        - id: chatbot_route
-          uri: https://eagle-prepared-octopus.ngrok-free.app # 포워딩할 대상 URL
-          predicates:
-            - Path=/chatbot/**  # /chatbot/** 경로로 들어오는 모든 요청을 이 라우트로 처리
-          filters:
-            - RewritePath=/chatbot/(?<segment>.*), /chatbot_test/chat  # 경로를 /chatbot_test/chat으로 재작성하여 포워딩
+      mvc:
+        routes:
+          - id: chatbot_route
+            uri: https://eagle-prepared-octopus.ngrok-free.app # 포워딩할 대상 URL
+            predicates:
+              - Path=/chatbot/**  # /chatbot/** 경로로 들어오는 모든 요청을 이 라우트로 처리
+            filters:
+              - RewritePath=/chatbot/(?<segment>.*), /chatbot_test/chat  # 경로를 /chatbot_test/chat으로 재작성하여 포워딩
 
-        - id: stt_route
-          uri: https://eagle-prepared-octopus.ngrok-free.app  # 포워딩할 대상 기본 URL
-          predicates:
-            - Path=/voice/**  # /voice/** 경로로 들어오는 모든 요청을 이 라우트로 처리
-          filters:
-            - RewritePath=/voice/(?<segment>.*), /voice  # 경로를 /voice로 재작성하여 포워딩
-        - id: test_route
-          uri: https://httpbin.org # 테스트용 무료 서비스 URL
-          predicates:
-            - Path=/test2/**  # /test/** 경로로 들어오는 모든 요청을 이 라우트로 처리
-          filters:
-            - RewritePath=/test2/(?<segment>.*), /get  # 경로를 /get으로 재작성하여 포워딩
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html  # Swagger UI에 접근할 수 있는 경로 설정
-  api-docs:
-    path: /v3/api-docs      # OpenAPI 문서에 접근할 수 있는 경로 설정
-
-logging:
-  level:
-    org.springframework.r2dbc: DEBUG
-    io.r2dbc: TRACE
-    org.springframework.data.mongodb: DEBUG
-
+          - id: stt_route
+            uri: https://eagle-prepared-octopus.ngrok-free.app  # 포워딩할 대상 기본 URL
+            predicates:
+              - Path=/voice/**  # /voice/** 경로로 들어오는 모든 요청을 이 라우트로 처리
+            filters:
+              - RewritePath=/voice/(?<segment>.*), /voice  # 경로를 /voice로 재작성하여 포워딩
+          - id: test_route
+            uri: https://httpbin.org # 테스트용 무료 서비스 URL
+            predicates:
+              - Path=/test2/**  # /test/** 경로로 들어오는 모든 요청을 이 라우트로 처리
+            filters:
+              - RewritePath=/test2/(?<segment>.*), /get  # 경로를 /get으로 재작성하여 포워딩
 jwt:
-  expiration_time: 86400000 # 1일
-  secret: ${JWT_SECRET}
+  key: sdfadsfsdfadsfasdfasdfasdfsdfnw4tn23n4on1k5n1k2n14369hn
+  time: 86400000
 
+mybatis:
+  mapper-locations: mappers/**/*.xml
+minio:
+  url: ${MINIO_SERVER_URL}
+  accessKey: ${MINIO_ACCESS_KEY}
+  secretKey:  ${MINIO_PASSWORD}
+  bucketName: ${MINIO_BUCKET_NAME}
