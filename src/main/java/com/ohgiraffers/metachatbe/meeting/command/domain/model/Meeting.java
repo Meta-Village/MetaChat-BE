@@ -37,6 +37,17 @@ public class Meeting {
         this.worldId = worldId;
     }
 
+    public void update(LocalDateTime meetStartTime, LocalDateTime meetEndTime, ZoneName zoneName, long worldId) {
+        this.meetStartTime = meetStartTime;
+        this.meetEndTime = meetEndTime;
+        this.zoneName = zoneName;
+        this.worldId = worldId;
+    }
+
+    public void end(LocalDateTime endTime) {
+        this.meetEndTime = endTime;
+    }
+
     @Override
     public String toString() {
         return "Meeting{" +

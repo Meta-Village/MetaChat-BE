@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MeetingDTO {
+    private long meetingId;
     private LocalDateTime meetStartTime;
     private LocalDateTime meetEndTime;
     private ZoneName zoneName;
