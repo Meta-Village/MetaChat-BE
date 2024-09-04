@@ -19,9 +19,8 @@ public class MeetingController {
     @PostMapping
     public ResponseEntity<ResponseMessage> createMeeting(@RequestBody MeetingDTO meetingDTO) {
         try {
-            meetingService.createMeeting(meetingDTO);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ResponseMessage("Meeting created successfully"));
+            long meetingId=meetingService.createMeeting(meetingDTO);
+            return ResponseEntity.ok(new ResponseMessage("Meeting created successfully",meetingId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseMessage(e.getMessage()));

@@ -29,12 +29,12 @@ public class ZoneHistory {
     private ZoneName zoneName;
 
     @Column(name = "user_id")
-    private long userId;
+    private String userId;
 
     @Column(name = "world_id")
     private long worldId;
 
-    public ZoneHistory(LocalDateTime entryTime, LocalDateTime existTime, ZoneName zoneName, long userId, long worldId) {
+    public ZoneHistory(LocalDateTime entryTime, LocalDateTime existTime, ZoneName zoneName, String userId, long worldId) {
         this.entryTime = entryTime;
         this.existTime = existTime;
         this.zoneName = zoneName;
