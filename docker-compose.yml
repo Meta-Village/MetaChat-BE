@@ -29,7 +29,6 @@ services:
     command: server /data --console-address ":9001"
     volumes:
       - minio-data:/data
-    profiles: [ "storage", "required" ]
   #      - storage
   mongodb:
     image: mongo:latest

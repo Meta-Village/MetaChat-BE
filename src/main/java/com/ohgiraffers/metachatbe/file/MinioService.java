@@ -86,4 +86,20 @@ public class MinioService {
             throw new RuntimeException("An unexpected error occurred: " + e.getMessage());
         }
     }
+    public void deleteFile(String filename) throws Exception {
+        try {
+            minioClient.removeObject(
+                    RemoveObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(filename)
+                            .build()
+            );
+        } catch (ErrorResponseException e) {
+            // 파일이 존재하지 않을 때
+            throw new RuntimeException("File not found: " + filename, e);
+        } catch (Exception e) {
+            // 기타 예외 처리
+            throw new RuntimeException("Error deleting file: " + filename, e);
+        }
+    }
 }

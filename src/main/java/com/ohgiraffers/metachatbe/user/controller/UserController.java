@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RestController
@@ -52,6 +53,49 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("회원가입 처리 중 오류 발생: " + e.getMessage());
+        }
+    }
+    @PutMapping(value =  "/{userId}", consumes = "multipart/form-data")
+    public ResponseEntity<?> updateUser(@PathVariable String userId,
+                                        @ModelAttribute User updatedUser,
+                                        @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+        try {
+            Optional<User> userOptional = userRepository.findByUserId(userId);
+            if (!userOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+
+            User existingUser = userOptional.get();
+
+            // 업데이트할 필드들 설정
+            if (updatedUser.getUserName() != null) {
+                existingUser.setUserName(updatedUser.getUserName());
+            }
+            if (updatedUser.getUserEmail() != null) {
+                existingUser.setUserEmail(updatedUser.getUserEmail());
+            }
+            if (updatedUser.getUserPass() != null) {
+                existingUser.setUserPass(passwordEncoder.encode(updatedUser.getUserPass()));
+            }
+
+            // 새 파일이 업로드된 경우
+            if (multipartFile != null && !multipartFile.isEmpty()) {
+                // 기존 파일 삭제
+                if (existingUser.getUserFileName() != null) {
+                    minioService.deleteFile(existingUser.getUserFileName());
+                }
+                // 새 파일 업로드
+                String newFileName = minioService.uploadFile(multipartFile);
+                existingUser.setUserFileName(newFileName);
+            }
+
+            // 사용자 정보 저장
+            User savedUser = userRepository.save(existingUser);
+
+            return ResponseEntity.ok("User updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating user: " + e.getMessage());
         }
     }
 }
