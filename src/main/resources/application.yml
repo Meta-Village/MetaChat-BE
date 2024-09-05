@@ -1,8 +1,5 @@
 server:
   port: 8123
-  tomcat:
-    max-http-form-post-size: 20971520
-#    max-http-form-post-size: 1000000000 # 1000MB로 제한
 
 spring:
   config:
@@ -38,30 +35,17 @@ spring:
               - RewritePath=/chatbot/(?<segment>.*), /chatbot_test/chat  # 경로를 /chatbot_test/chat으로 재작성하여 포워딩
 
           - id: stt_route
-            uri: https://eagle-prepared-octopus.ngrok-free.app/stt/voice  # 포워딩할 대상 기본 URL
+            uri: https://eagle-prepared-octopus.ngrok-free.app # 포워딩할 대상 기본 URL
             predicates:
               - Path=/voice/**  # /voice/** 경로로 들어오는 모든 요청을 이 라우트로 처리
             filters:
-              - RewritePath=/voice/(?<segment>.*), /voice  # 경로를 /voice로 재작성하여 포워딩
-              - name: RequestSize
-                args:
-                  maxSize : 1000000000 # 1000MB
-#              - args:
-#                  maxsize : 1000000000 # 1000MB로 제한 (필요에 따라 수정)
+              - RewritePath=/voice, /stt/voice  # 경로를 /voice로 재작성하여 포워딩
           - id: test_route
             uri: https://httpbin.org # 테스트용 무료 서비스 URL
             predicates:
               - Path=/test2/**  # /test/** 경로로 들어오는 모든 요청을 이 라우트로 처리
             filters:
               - RewritePath=/test2/(?<segment>.*), /get  # 경로를 /get으로 재작성하여 포워딩
-  servlet:
-    multipart:
-      max-file-size: 1000MB
-      max-request-size: 1000MB
-      enabled: true
-      file-size-threshold: 1000MB
-
-
 jwt:
   key: sdfadsfsdfadsfasdfasdfasdfsdfnw4tn23n4on1k5n1k2n14369hn
   time: 86400000
