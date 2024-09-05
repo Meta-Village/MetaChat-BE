@@ -27,7 +27,7 @@ public class UserController {
     private BCryptPasswordEncoder passwordEncoder;
 
 
-    @PostMapping(value = "/signup", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/signup", consumes = "multipart/form-data")
     public ResponseEntity<?> signup(@ModelAttribute User user,
                                     @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
         try {

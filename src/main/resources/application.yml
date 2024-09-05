@@ -39,7 +39,7 @@ spring:
             predicates:
               - Path=/voice/**  # /voice/** 경로로 들어오는 모든 요청을 이 라우트로 처리
             filters:
-              - RewritePath=/voice/(?<segment>.*), /voice  # 경로를 /voice로 재작성하여 포워딩
+              - RewritePath=/voice, /stt/voice  # 경로를 /voice로 재작성하여 포워딩
           - id: test_route
             uri: https://httpbin.org # 테스트용 무료 서비스 URL
             predicates:
