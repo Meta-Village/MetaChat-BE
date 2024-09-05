@@ -25,7 +25,7 @@ public class WorldController {
 
     @Operation(summary = "Create a new World", description = "Creates a new World entity and returns the created entity.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "World created successfully"),
+            @ApiResponse(responseCode = "201", description = "World created successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
