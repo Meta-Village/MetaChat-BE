@@ -25,7 +25,7 @@ public class ChatService {
         this.externalZoneHistoryService = externalZoneHistoryService;
     }
 
-    @Transactional
+
     public void saveChat(ChatDTO chatDTO) {
         Chat chat = chatDTO.toEntity();
         chatRepository.save(chat);

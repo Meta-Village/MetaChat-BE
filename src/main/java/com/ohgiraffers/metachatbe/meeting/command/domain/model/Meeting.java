@@ -24,6 +24,7 @@ public class Meeting {
     @Column(name = "meeting_end_time")
     private LocalDateTime meetEndTime;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "zone_name")
     private ZoneName zoneName;
 

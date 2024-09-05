@@ -2,11 +2,15 @@ package com.ohgiraffers.metachatbe.user.entity;
 
 import com.ohgiraffers.metachatbe.security.common.OhgiraffersRole;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "TBL_USER")
 public class User {
@@ -28,6 +32,9 @@ public class User {
     @Column(name = "USER_EMAIL")
     private String userEmail;
 
+    @Column(name = "USER_FILE_NAME")
+    private String userFileName;
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "USER_ROLE")
     private OhgiraffersRole role;
@@ -45,62 +52,6 @@ public class User {
     public User() {
     }
 
-    public int getUserNo() {
-        return userNo;
-    }
-
-    public void setUserNo(int userNo) {
-        this.userNo = userNo;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserPass() {
-        return userPass;
-    }
-
-    public void setUserPass(String userPass) {
-        this.userPass = userPass;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public OhgiraffersRole getRole() {
-        return role;
-    }
-
-    public void setRole(OhgiraffersRole role) {
-        this.role = role;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -109,6 +60,7 @@ public class User {
                 ", userPass='" + userPass + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
+                ", userFileName='" + userFileName + '\'' +
                 ", role=" + role +
                 ", state='" + state + '\'' +
                 '}';
