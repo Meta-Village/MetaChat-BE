@@ -1,18 +1,12 @@
 package com.ohgiraffers.metachatbe.summary.command.application.service;
 
 import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.GetObjectArgs;
-import io.minio.errors.MinioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
 
 @Service
-public class MinioService {
+public class WavFileService {
 
 
     @Autowired
