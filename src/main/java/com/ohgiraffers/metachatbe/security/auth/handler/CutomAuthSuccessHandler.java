@@ -1,28 +1,42 @@
 package com.ohgiraffers.metachatbe.security.auth.handler;
 
+import com.ohgiraffers.metachatbe.file.MinioService;
 import com.ohgiraffers.metachatbe.security.auth.model.DetailsUser;
 import com.ohgiraffers.metachatbe.security.common.AuthConstants;
 import com.ohgiraffers.metachatbe.security.common.utils.ConvertUtil;
 import com.ohgiraffers.metachatbe.security.common.utils.TokenUtils;
 import com.ohgiraffers.metachatbe.user.entity.User;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.channels.MulticastChannel;
 import java.util.HashMap;
 
 @Configuration
 public class CutomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
+    @Autowired
+    public MinioService minioService;
+
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         User user  = ((DetailsUser) authentication.getPrincipal()).getUser();
         JSONObject jsonValue = (JSONObject) ConvertUtil.convertObjectToJsonObject(user);
+        try {
+            jsonValue.put("fileUrl",minioService.getFileUrl(user.getUserFileName()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         HashMap<String, Object> responseMap = new HashMap<>();
 
         JSONObject jsonObject;
@@ -33,7 +47,6 @@ public class CutomAuthSuccessHandler extends SavedRequestAwareAuthenticationSucc
             String token = TokenUtils.generateJwtToken(user);
             responseMap.put("userInfo", jsonValue);
             responseMap.put("message", "로그인 성공");
-
             response.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.TOKEN_TYPE + " " + token);
         }
 

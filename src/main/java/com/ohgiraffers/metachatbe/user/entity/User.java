@@ -23,7 +23,7 @@ public class User {
     @Schema(description = "사용자의 고유 번호", example = "1")
     private int userNo;
 
-    @Column(name = "USER_ID", nullable = false)
+    @Column(name = "USER_ID", nullable = false,unique = true)
     @Schema(description = "사용자의 ID", example = "user123")
     private String userId;
 
