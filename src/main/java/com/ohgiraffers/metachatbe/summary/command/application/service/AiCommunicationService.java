@@ -1,6 +1,6 @@
 package com.ohgiraffers.metachatbe.summary.command.application.service;
 
-import com.ohgiraffers.metachatbe.summary.command.domain.model.AiCommunicationDTO;
+import com.ohgiraffers.metachatbe.summary.command.application.dto.AiCommunicationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -24,7 +24,7 @@ public class AiCommunicationService {
     }
 
     public Mono<String> sendPostRequest() {
-        String url = "https://eagle-prepared-octopus.ngrok-free.app/chatbot_test/chat"; // 원격 서버 URL
+        String url = "https://eagle-prepared-octopus.ngrok-free.app/stt/voice"; // 원격 서버 URL
         AiCommunicationDTO requestData = new AiCommunicationDTO("안녕하세요"); // 요청에 보낼 데이터
         System.out.println(requestData);
 

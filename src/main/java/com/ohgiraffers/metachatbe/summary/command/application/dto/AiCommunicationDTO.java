@@ -1,4 +1,4 @@
-package com.ohgiraffers.metachatbe.summary.command.domain.model;
+package com.ohgiraffers.metachatbe.summary.command.application.dto;
 
 public class AiCommunicationDTO {
 
