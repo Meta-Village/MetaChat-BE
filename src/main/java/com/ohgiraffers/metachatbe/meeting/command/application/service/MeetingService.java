@@ -16,7 +16,7 @@ public class MeetingService {
         this.meetingRepository = meetingRepository;
     }
 
-    @Transactional
+
     public long createMeeting(MeetingDTO meetingDTO) {
         Meeting meeting = meetingDTO.toEntity();
         meetingRepository.save(meeting);
@@ -34,7 +34,7 @@ public class MeetingService {
         meetingRepository.save(meeting);
     }
 
-    @Transactional
+
     public void deleteMeeting(Long meetingId) {
         meetingRepository.deleteById(meetingId);
     }

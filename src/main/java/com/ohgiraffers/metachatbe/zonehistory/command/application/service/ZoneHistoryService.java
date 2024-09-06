@@ -17,7 +17,6 @@ public class ZoneHistoryService {
         this.zoneHistoryRepository = zoneHistoryRepository;
     }
 
-    @Transactional
     public void insertZoneHistory(ZoneHistoryDTO zoneHistoryDTO) {
         ZoneHistory zoneHistory = zoneHistoryDTO.toEntity();
         zoneHistoryRepository.save(zoneHistory);
