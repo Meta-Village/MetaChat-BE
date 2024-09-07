@@ -48,6 +48,7 @@ public class AiCommunicationController {
 //    }
 
 
+    @Operation(deprecated = true)
     @GetMapping("/sendGetRequest")
     public Mono<String> sendGetRequest() {
         return aiCommunicationService.sendGetRequest()
@@ -55,6 +56,7 @@ public class AiCommunicationController {
                 .doOnError(error -> System.err.println("Error: " + error.getMessage()));
     }
 
+    @Operation(deprecated = true)
     @GetMapping("/sendPostRequest")
     public Mono<String> sendPostRequest() {
         return aiCommunicationService.sendPostRequest()
@@ -66,7 +68,8 @@ public class AiCommunicationController {
 //            @ApiResponse(responseCode = "200", description = "voice 가 전송되었습니다. 요약을 반환합니다."),
 //            @ApiResponse(responseCode = "500", description = "서버 오류가 발생했습니다.")
 //    })
-    @PostMapping(value = "/api/voice"/*, produces = "application/json; charset=UTF-8"*/)
+    @Operation(deprecated = true)
+    @PostMapping(value = "/api/voice", produces = "application/json; charset=UTF-8")
     public CompletableFuture<Mono<SummaryDTO>> sendVoiceToSummary(@RequestBody SummaryDTO summaryDTO) {
         return aiCommunicationService.sendVoiceToAI(summaryDTO);
     }
@@ -76,8 +79,8 @@ public class AiCommunicationController {
             @ApiResponse(responseCode = "200", description = "요약을 가져오는데 성공하였습니다."),
             @ApiResponse(responseCode = "400", description = "요약을 찾을 수 없거나 에러가 발생하였습니다.")
     })
-    @GetMapping(value = "/api/summary/{meetingId}")
-    public ResponseEntity<ResponseMessage> findSummary(@PathVariable Long meetingId) {
+    @GetMapping(value = "/api/summary/{meetingId}", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<ResponseMessage> saveSummary(@PathVariable Long meetingId) {
         try {
             SummaryDTO summaryDTO = aiCommunicationService.findSummary(meetingId);
             return ResponseEntity.status(HttpStatus.OK)
@@ -95,8 +98,8 @@ public class AiCommunicationController {
             @ApiResponse(responseCode = "200", description = "요약을 성공적으로 저장하였습니다."),
             @ApiResponse(responseCode = "400", description = "잘못된 요청입니다.")
     })
-    @PostMapping(value = "/api/summary")
-    public ResponseEntity<ResponseMessage> findSummary(@RequestBody SummaryDTO summaryDTO) {
+    @PostMapping(value = "/api/summary", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<ResponseMessage> saveSummary(@RequestBody SummaryDTO summaryDTO) {
         try {
             aiCommunicationService.saveSummary(summaryDTO);
             return ResponseEntity.status(HttpStatus.OK)
