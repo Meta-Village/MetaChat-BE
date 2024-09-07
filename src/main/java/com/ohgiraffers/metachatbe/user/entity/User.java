@@ -1,5 +1,6 @@
 package com.ohgiraffers.metachatbe.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ohgiraffers.metachatbe.security.common.OhgiraffersRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -51,7 +52,7 @@ public class User {
     @Column(name = "USER_STATE")
     @Schema(description = "사용자의 상태", example = "ACTIVE")
     private String state;
-
+    @JsonIgnore
     public List<String> getRoleList() {
         if (this.role.getRole().length() > 0) {
             return Arrays.asList(this.role.getRole().split(","));

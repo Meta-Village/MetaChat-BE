@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -37,18 +38,12 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "회원가입 성공"),
             @ApiResponse(responseCode = "500", description = "회원가입 처리 중 오류 발생")
     })
-    @PostMapping(value = "/signup", consumes = "multipart/form-data")
-    public ResponseEntity<?> signup(@ModelAttribute User user,
-                                    @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+    @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> signup(@RequestBody User user) {
+        System.out.println(user);  // 디버깅을 위한 User 객체 출력
         try {
             // 비밀번호 인코딩
             user.setUserPass(passwordEncoder.encode(user.getUserPass()));
-
-            // 파일 업로드 처리
-            if (multipartFile != null && !multipartFile.isEmpty()) {
-                String fileName = minioService.uploadFile(multipartFile);
-                user.setUserFileName(fileName);
-            }
 
             // 사용자 저장
             User savedUser = userRepository.save(user);
