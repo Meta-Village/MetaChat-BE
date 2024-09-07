@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@Component
-@WebFilter(urlPatterns = "/voice")
+//@Component
+//@WebFilter(urlPatterns = "/voice")
 public class ResponseFilter implements Filter {
 
     private final AiCommunicationService aiCommunicationService;

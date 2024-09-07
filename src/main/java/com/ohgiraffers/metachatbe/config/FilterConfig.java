@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean<ResponseFilter> loggingFilter(AiCommunicationService aiCommunicationService) {
+    public FilterRegistrationBean<ResponseFilter> responseFilter(AiCommunicationService aiCommunicationService) {
         FilterRegistrationBean<ResponseFilter> registrationBean = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(new ResponseFilter(aiCommunicationService));
