@@ -45,7 +45,7 @@ public class AiCommunicationController {
 
 
     @Deprecated
-    @Operation(summary = "GET 요청 전송", description = "AI 서비스에 GET 요청을 보내고 응답을 받습니다.")
+    @Operation(summary = "GET 요청 전송", description = "AI 서비스에 GET 요청을 보내고 응답을 받습니다.", deprecated = true)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "GET 요청이 성공적으로 처리되었습니다."),
             @ApiResponse(responseCode = "500", description = "서버 오류가 발생했습니다.")
@@ -58,7 +58,7 @@ public class AiCommunicationController {
     }
 
     @Deprecated
-    @Operation(summary = "POST 요청 전송", description = "AI 서비스에 POST 요청을 보내고 응답을 받습니다.")
+    @Operation(summary = "POST 요청 전송", description = "AI 서비스에 POST 요청을 보내고 응답을 받습니다.", deprecated = true)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "POST 요청이 성공적으로 처리되었습니다."),
             @ApiResponse(responseCode = "500", description = "서버 오류가 발생했습니다.")
