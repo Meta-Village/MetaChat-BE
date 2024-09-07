@@ -7,7 +7,7 @@ public class Summary {
 
     @Id
     @Column(unique = true, nullable = false)
-    private Long summaryId;
+    private Long meetingId;
 
     @Column
     private String summary;
@@ -15,13 +15,13 @@ public class Summary {
     public Summary() {
     }
 
-    public Summary(Long summaryId, String summary) {
-        this.summaryId = summaryId;
+    public Summary(Long meetingId, String summary) {
+        this.meetingId = meetingId;
         this.summary = summary;
     }
 
-    public Long getSummaryId() {
-        return summaryId;
+    public Long getMeetingId() {
+        return meetingId;
     }
 
     public String getSummary() {
@@ -31,7 +31,7 @@ public class Summary {
     @Override
     public String toString() {
         return "Summary{" +
-                "summaryId=" + summaryId +
+                "summaryId=" + meetingId +
                 ", summary='" + summary + '\'' +
                 '}';
     }

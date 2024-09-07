@@ -1,21 +1,25 @@
 package com.ohgiraffers.metachatbe.filter;
 
+import com.ohgiraffers.metachatbe.summary.command.application.service.AiCommunicationService;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpServletResponseWrapper;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 
 
-
+@Component
 @WebFilter(urlPatterns = "/voice")
 public class ResponseFilter implements Filter {
+
+    private final AiCommunicationService aiCommunicationService;
+
+    public ResponseFilter(AiCommunicationService aiCommunicationService) {
+        this.aiCommunicationService = aiCommunicationService;
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -37,8 +41,8 @@ public class ResponseFilter implements Filter {
         // 응답 데이터를 가져옵니다.
         String responseData = responseWrapper.getCaptureAsString();
 
-        // 응답 데이터를 로그로 출력하거나 필요한 처리를 할 수 있습니다.
-        System.out.println("Response Data: " + responseData);
+        // saveSummary 호출
+        aiCommunicationService.saveSummary(responseData);  // 비동기적으로 실행
 
         // 원래 응답 스트림으로 데이터를 전송합니다.
         PrintWriter out = response.getWriter();
