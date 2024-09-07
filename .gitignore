@@ -36,3 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 /mysql_data
+
+.env
+/mongo_data

@@ -40,7 +40,7 @@ spring:
               - RewritePath=/chatbot/(?<segment>.*), /chatbot_test/chat  # 경로를 /chatbot_test/chat으로 재작성하여 포워딩
 
           - id: stt_route
-            uri: https://eagle-prepared-octopus.ngrok-free.app  # 포워딩할 대상 기본 URL
+            uri: https://eagle-prepared-octopus.ngrok-free.app # 포워딩할 대상 기본 URL
             predicates:
               - Path=/voice/**  # /voice/** 경로로 들어오는 모든 요청을 이 라우트로 처리
             filters:
