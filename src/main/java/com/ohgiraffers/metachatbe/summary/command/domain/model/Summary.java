@@ -1,6 +1,7 @@
 package com.ohgiraffers.metachatbe.summary.command.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Summary {
@@ -9,7 +10,9 @@ public class Summary {
     @Column(unique = true, nullable = false)
     private Long meetingId;
 
+
     @Column
+    @Size(max = 65535)
     private String summary;
 
     public Summary() {
