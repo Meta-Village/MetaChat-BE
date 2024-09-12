@@ -17,25 +17,25 @@ import java.time.LocalDateTime;
 @Schema(name = "채팅 데이터", description = "채팅 메시지와 관련된 데이터 전송 객체")
 public class ChatDTO {
 
-    @Schema(name = "월드 ID", description = "채팅이 이루어지는 월드의 고유 ID", example = "1")
+    @Schema( description = "채팅이 이루어지는 월드의 고유 ID", example = "1")
     private Long worldId;
 
-    @Schema(name = "사용자 ID", description = "채팅을 작성한 사용자의 ID", example = "user123")
+    @Schema( description = "채팅을 작성한 사용자의 ID", example = "user123")
     private String userId;
 
-    @Schema(name = "미팅 ID", description = "채팅이 관련된 미팅의 고유 ID", example = "101")
+    @Schema( description = "채팅이 관련된 미팅의 고유 ID", example = "101")
     private Long meetingId;
 
-    @Schema(name = "사용자 이름", description = "채팅을 작성한 사용자의 이름", example = "홍길동")
+    @Schema( description = "채팅을 작성한 사용자의 이름", example = "홍길동")
     private String userName;
 
-    @Schema(name = "존 이름", description = "채팅이 발생한 존의 이름", example = "MainZone")
+    @Schema( description = "채팅이 발생한 존의 이름", example = "MainZone")
     private ZoneName zoneName;
 
-    @Schema(name = "채팅 시간", description = "채팅이 발생한 시간", example = "2023-09-06T14:30:00")
+    @Schema( description = "채팅이 발생한 시간", example = "2023-09-06T14:30:00")
     private LocalDateTime chatTime;
 
-    @Schema(name = "채팅 내용", description = "채팅의 실제 내용", example = "안녕하세요, 모두들!")
+    @Schema( description = "채팅의 실제 내용", example = "안녕하세요, 모두들!")
     private String chatContent;
 
     public ChatDTO(ZoneName zoneName, String userName, LocalDateTime chatTime, String chatContent) {

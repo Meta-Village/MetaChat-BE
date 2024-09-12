@@ -1,5 +1,6 @@
 package com.ohgiraffers.metachatbe.world.command.application.controller;
 
+import com.ohgiraffers.metachatbe.world.command.application.dto.PasswordRequestDTO;
 import com.ohgiraffers.metachatbe.world.command.application.dto.WorldRequestDTO;
 import com.ohgiraffers.metachatbe.world.command.application.dto.WorldResponseDTO;
 import com.ohgiraffers.metachatbe.world.command.application.service.WorldService;
@@ -11,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -50,6 +53,9 @@ public class WorldController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+
+
+
     @Operation(summary = "모든 월드 조회", description = "모든 월드 엔티티를 조회합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "월드 목록이 성공적으로 조회되었습니다."),
@@ -59,6 +65,29 @@ public class WorldController {
     public ResponseEntity<List<WorldResponseDTO>> getAllWorlds() {
         List<WorldResponseDTO> worlds = worldService.getAllWorlds();
         return ResponseEntity.ok(worlds);
+    }
+
+    // 추가된 메서드: 월드 접근 시 비밀번호 검증
+    @Operation(summary = "월드 비밀번호 검증", description = "사용자가 월드에 접근할 때 비밀번호를 검증합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "비밀번호가 성공적으로 검증되었습니다."),
+            @ApiResponse(responseCode = "400", description = "비밀번호가 일치하지 않습니다."),
+            @ApiResponse(responseCode = "404", description = "월드를 찾을 수 없습니다."),
+            @ApiResponse(responseCode = "500", description = "내부 서버 오류가 발생했습니다.")
+    })
+
+    @PostMapping(value = "/{id}/validate-password", produces = "application/json; charset=UTF-8", consumes = "application/json")
+    public ResponseEntity<Map<String, String>> validateWorldPassword(@PathVariable Long id, @RequestBody PasswordRequestDTO passwordRequestDTO) {
+        boolean isValid = worldService.validateWorldPassword(id, passwordRequestDTO.getPassword());
+        Map<String, String> response = new HashMap<>();
+
+        if (isValid) {
+            response.put("message", "비밀번호가 일치합니다.");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "비밀번호가 일치하지 않습니다.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @Operation(summary = "월드 업데이트", description = "ID를 사용하여 기존의 월드 엔티티를 업데이트합니다.")

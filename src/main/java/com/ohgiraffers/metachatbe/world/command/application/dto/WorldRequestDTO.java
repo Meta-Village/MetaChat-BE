@@ -5,10 +5,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(name = "월드 요청 데이터", description = "월드 생성을 위한 요청 데이터를 포함하는 객체")
 public class WorldRequestDTO {
 
-    @Schema(name = "월드 이름", description = "월드의 이름", example = "MyWorld")
+    @Schema(description = "월드의 이름", example = "MyWorld")
     private String worldName;
 
-    @Schema(name = "월드 비밀번호", description = "월드의 비밀번호", example = "password123")
+    @Schema( description = "월드의 비밀번호", example = "password123")
     private String worldPassword;
 
     // 기본 생성자

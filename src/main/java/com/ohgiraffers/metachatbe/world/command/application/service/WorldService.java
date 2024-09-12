@@ -35,6 +35,14 @@ public class WorldService {
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
+    public boolean validateWorldPassword(Long id, String inputPassword) {
+        Optional<World> worldOpt = worldRepository.findById(id);
+        if (worldOpt.isPresent()) {
+            World world = worldOpt.get();
+            return world.getWorldPassword().equals(inputPassword);
+        }
+        return false;
+    }
 
     public boolean updateWorld(Long id, WorldRequestDTO worldDTO) {
         Optional<World> existingWorldOpt = worldRepository.findById(id);
