@@ -43,10 +43,10 @@ public class CutomAuthSuccessHandler extends SavedRequestAwareAuthenticationSucc
         HashMap<String, Object> responseMap = new HashMap<>();
 
         JSONObject jsonObject;
-        if(user.getState().equals("N")){
+        if("N".equals(user.getState())){
             responseMap.put("userInfo", jsonValue);
-            responseMap.put("message","휴먼상태인 계정입니다.");
-        }else{
+            responseMap.put("message", "휴면상태인 계정입니다.");
+        } else {
             String token = TokenUtils.generateJwtToken(user);
             responseMap.put("userInfo", jsonValue);
             responseMap.put("message", "로그인 성공");
