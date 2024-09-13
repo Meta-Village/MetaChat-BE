@@ -14,11 +14,9 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.channels.MulticastChannel;
 import java.util.HashMap;
 
 @Configuration
@@ -27,16 +25,21 @@ public class CutomAuthSuccessHandler extends SavedRequestAwareAuthenticationSucc
     @Autowired
     public MinioService minioService;
 
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         User user  = ((DetailsUser) authentication.getPrincipal()).getUser();
         JSONObject jsonValue = (JSONObject) ConvertUtil.convertObjectToJsonObject(user);
-        try {
-            jsonValue.put("fileUrl",minioService.getFileUrl(user.getUserFileName()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+        // Check if userFileName is not null before calling isEmpty()
+        if(user.getUserFileName() != null && !user.getUserFileName().isEmpty()){
+            try {
+                jsonValue.put("fileUrl", minioService.getFileUrl(user.getUserFileName()));
+            } catch (Exception e) {
+                // Log the exception or handle it appropriately
+                e.printStackTrace();
+            }
         }
+
         HashMap<String, Object> responseMap = new HashMap<>();
 
         JSONObject jsonObject;

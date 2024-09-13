@@ -42,6 +42,7 @@ public class UserController {
     public ResponseEntity<?> signup(@RequestBody User user) {
         System.out.println(user);  // 디버깅을 위한 User 객체 출력
         try {
+
             // 비밀번호 인코딩
             user.setUserPass(passwordEncoder.encode(user.getUserPass()));
 

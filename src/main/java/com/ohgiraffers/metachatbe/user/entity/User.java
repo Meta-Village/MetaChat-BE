@@ -42,7 +42,10 @@ public class User {
 
     @Column(name = "USER_FILE_NAME")
     @Schema(description = "사용자가 업로드한 파일 이름", example = "profile.jpg")
-    private String userFileName;
+    private String userFileName = ""; // Initialize with empty string
+
+
+
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "USER_ROLE")
@@ -60,8 +63,21 @@ public class User {
         return new ArrayList<>();
     }
 
+
     public User() {
+        this.role = OhgiraffersRole.USER; // 기본 역할 설정
     }
+
+
+    public String getUserFileName() {
+        return userFileName != null ? userFileName : "";
+    }
+
+    public void setUserFileName(String userFileName) {
+        this.userFileName = userFileName != null ? userFileName : "";
+    }
+
+
 
     @Override
     public String toString() {
