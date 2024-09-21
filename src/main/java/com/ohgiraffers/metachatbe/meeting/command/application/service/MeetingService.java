@@ -53,19 +53,31 @@ public class MeetingService {
     }
 
     @Transactional
+    @Nullable
     public List<MeetingDTO> findMeetingByWorldIdAndZoneName(long worldId, ZoneName zoneName) {
         List<Meeting> meetings = meetingRepository.findByWorldIdAndZoneName(worldId, zoneName);
 //        System.out.println(meetings);
         if (meetings.isEmpty()) {return null;}
         return meetings
                 .stream()
-                .map(meeting-> new MeetingDTO(
-                        meeting.getMeetId(),
-                        meeting.getMeetStartTime(),
-                        meeting.getMeetEndTime(),
-                        meeting.getZoneName(),
-                        meeting.getWorldId()
-                ))
+                .map(this::convertMeetingEntityToDTO)
                 .toList();
+    }
+
+    @Transactional
+    @Nullable
+    public MeetingDTO findMeetingById(long meetingId) {
+        Meeting meeting = meetingRepository.findById(meetingId).orElse(null);
+        if (meeting == null) {return null;}
+        return convertMeetingEntityToDTO(meeting);
+    }
+
+    private MeetingDTO convertMeetingEntityToDTO(Meeting meeting) {
+        return new MeetingDTO(
+                meeting.getMeetId(),
+                meeting.getMeetStartTime(),
+                meeting.getMeetEndTime(),
+                meeting.getZoneName(),
+                meeting.getWorldId());
     }
 }
