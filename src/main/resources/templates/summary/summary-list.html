@@ -17,7 +17,7 @@
     </thead>
     <tbody>
     <tr th:each="meeting : ${meetings}"
-        th:onclick="'window.location.href=\'/web-summary/summary?meetingId=' + ${meeting.meetingId} + '\''"
+        th:onclick="'window.location.href=\'/web-summary/summary?meeting-id=' + ${meeting.meetingId} + '\''"
     style="cursor: pointer">
         <td th:text="${meeting.meetingId}">456</td>
         <td th:text="${meeting.meetStartTime}">1990-00-00 00:00:00</td>

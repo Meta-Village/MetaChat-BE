@@ -5,8 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<h1 th:text="${meeting.getWorldId()}"></h1>
+<h1 th:text="'World ' + ${meeting.getWorldId()}"></h1>
 <h2 th:text="${meeting.getZoneName()}"></h2>
 <span th:text="${summary.getMessages()}"></span>
+<br/>
+<br/>
+<br/>
+<br/>
+<a th:href="@{/web-summary/search}">
+    <button>검색으로 돌아가기</button>
+</a>
 </body>
 </html>
