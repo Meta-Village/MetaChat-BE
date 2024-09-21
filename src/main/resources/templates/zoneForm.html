@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zone Form</title>
+</head>
+<body>
+<h1>회의 요약 조회</h1>
+<form action="#" th:action="@{/zones}" method="post">
+    <label for="world_id">World ID:</label>
+    <input type="number" id="world_id" name="world_id" required />
+    <br />
+
+    <label for="zone_name">Zone Name:</label>
+    <select id="zone_name" name="zone_name" required>
+        <option value="ROOM1">ROOM1</option>
+        <option value="ROOM2">ROOM2</option>
+        <option value="ROOM3">ROOM3</option>
+        <option value="ROOM4">ROOM4</option>
+    </select>
+    <br />
+    <br/>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

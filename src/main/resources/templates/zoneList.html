@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zone List</title>
+</head>
+<body>
+<h1>Filtered Zones</h1>
+<table >
+    <thead>
+    <tr>
+        <th>Meeting ID</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="zone : ${meetings}">
+        <td th:text="${meetings.meetingId}">456</td>
+        <td th:text="${meetings.meetStartTime}">1990-00-00 00:00:00</td>
+        <td th:text="${meetings.meetEndTime}">1990-00-00 00:00:00</td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<button th:href="@{/zone-form}">검색으로 돌아가기</button>
+</body>
+</html>
