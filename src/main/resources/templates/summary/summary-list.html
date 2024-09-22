@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>검색 결과</title>
+    <link rel="stylesheet" href="/static/summary/summary-list.css">
+</head>
+<body>
+<h1>해당 장소의 모든 회의 목록</h1>
+<table >
+    <thead>
+    <tr>
+        <th>Meeting ID</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="meeting : ${meetings}"
+        th:onclick="'window.location.href=\'/web-summary/summary?meeting-id=' + ${meeting.meetingId} + '\''"
+    style="cursor: pointer">
+        <td th:text="${meeting.meetingId}">456</td>
+        <td th:text="${meeting.meetStartTime}">1990-00-00 00:00:00</td>
+        <td th:text="${meeting.meetEndTime}">1990-00-00 00:00:00</td>
+
+    </tr>
+    </tbody>
+</table>
+<br/>
+<a th:href="@{/web-summary/search}">
+    <button>검색으로 돌아가기</button>
+</a>
+</body>
+</html>

@@ -3,10 +3,13 @@ package com.ohgiraffers.metachatbe.meeting.command.application.service;
 import com.ohgiraffers.metachatbe.meeting.command.application.dto.MeetingDTO;
 import com.ohgiraffers.metachatbe.meeting.command.domain.model.Meeting;
 import com.ohgiraffers.metachatbe.meeting.command.domain.repository.MeetingRepository;
+import com.ohgiraffers.metachatbe.util.enumtype.ZoneName;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MeetingService {
@@ -47,5 +50,34 @@ public class MeetingService {
         meeting.end(LocalDateTime.now());
 
         meetingRepository.save(meeting);
+    }
+
+    @Transactional
+    @Nullable
+    public List<MeetingDTO> findMeetingByWorldIdAndZoneName(long worldId, ZoneName zoneName) {
+        List<Meeting> meetings = meetingRepository.findByWorldIdAndZoneName(worldId, zoneName);
+//        System.out.println(meetings);
+        if (meetings.isEmpty()) {return null;}
+        return meetings
+                .stream()
+                .map(this::convertMeetingEntityToDTO)
+                .toList();
+    }
+
+    @Transactional
+    @Nullable
+    public MeetingDTO findMeetingById(long meetingId) {
+        Meeting meeting = meetingRepository.findById(meetingId).orElse(null);
+        if (meeting == null) {return null;}
+        return convertMeetingEntityToDTO(meeting);
+    }
+
+    private MeetingDTO convertMeetingEntityToDTO(Meeting meeting) {
+        return new MeetingDTO(
+                meeting.getMeetId(),
+                meeting.getMeetStartTime(),
+                meeting.getMeetEndTime(),
+                meeting.getZoneName(),
+                meeting.getWorldId());
     }
 }

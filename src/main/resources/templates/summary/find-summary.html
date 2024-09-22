@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회의 검색</title>
+
+    <link rel="stylesheet" href="/summary/summary-search.css">
+</head>
+<body>
+<h1>회의 요약 검색</h1>
+<form action="#" th:action="@{/web-summary/summary-list}" method="get">
+    <label for="world-id">World ID:</label>
+    <input type="number" id="world-id" name="world-id" required />
+    <br/>
+
+    <label for="zone-name">Zone Name:</label>
+    <select id="zone-name" name="zone-name" required>
+        <option value="ROOM1">ROOM1</option>
+        <option value="ROOM2">ROOM2</option>
+        <option value="ROOM3">ROOM3</option>
+        <option value="ROOM4">ROOM4</option>
+    </select>
+    <br/>
+    <br/>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

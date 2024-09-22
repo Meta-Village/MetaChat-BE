@@ -40,4 +40,15 @@ public class MeetingDTO {
                 this.worldId
         );
     }
+
+    @Override
+    public String toString() {
+        return "MeetingDTO{" +
+                "meetingId=" + meetingId +
+                ", meetStartTime=" + meetStartTime +
+                ", meetEndTime=" + meetEndTime +
+                ", zoneName=" + zoneName +
+                ", worldId=" + worldId +
+                '}';
+    }
 }
