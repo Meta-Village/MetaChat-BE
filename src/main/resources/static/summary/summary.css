@@ -1,0 +1,106 @@
+/* Style for the body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container for the main content */
+.container {
+    width: 80%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensures that content and header appear as one unit */
+}
+
+/* Flex container for header to align title and subtitle side by side */
+.header {
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: baseline;
+    padding: 10px 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 20px; /* Space between title and subtitle */
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.header h2 {
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 0;
+    color: #d9e5f0;
+}
+
+/* Content area */
+.content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Style for the button */
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for button */
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Align button in center */
+a {
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .container {
+        width: 95%;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .header h2 {
+        font-size: 16px;
+    }
+
+    .content {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}

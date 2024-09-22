@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회의 요약</title>
+    <link rel="stylesheet" href="/summary/summary.css">
 </head>
 <body>
-<h1 th:text="'World ' + ${meeting.getWorldId()}"></h1>
-<h2 th:text="${meeting.getZoneName()}"></h2>
-<span th:text="${summary.getMessages()}"></span>
-<br/>
-<br/>
-<br/>
-<br/>
-<a th:href="@{/web-summary/search}">
-    <button>검색으로 돌아가기</button>
-</a>
+    <div class="container">
+        <div class="header">
+            <h1 th:text="'World ' + ${meeting.getWorldId()}"></h1>
+            <h2 th:text="${meeting.getZoneName()}"></h2>
+        </div>
+        <div class="content">
+            <span th:text="${summary.getMessages()}"></span>
+        </div>
+    </div>
+    <a th:href="@{/web-summary/search}">
+        <button>검색으로 돌아가기</button>
+    </a>
 </body>
 </html>
